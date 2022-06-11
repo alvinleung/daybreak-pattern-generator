@@ -1,12 +1,13 @@
-import React from 'react'
-import './App.css'
+import React from "react";
+import "./App.css";
+import { GenerativePattern } from "./components/GenerativePattern";
 
 function App() {
   return (
-    <div>
-      <p>Clean React App</p>
+    <div className="w-screen h-screen">
+      <GenerativePattern />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
