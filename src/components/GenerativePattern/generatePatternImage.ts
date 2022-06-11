@@ -14,7 +14,7 @@ export interface PatternConfig {
   patternGenerators: Array<GridItemRenderer>;
   seed?: number;
 }
-export function createPatternImage({
+export function generatePatternImage({
   canvas,
   rows,
   cols,
@@ -54,7 +54,8 @@ export function createPatternImage({
         currRow * cellHeight,
         cellWidth,
         cellHeight,
-        renderOption
+        renderOption,
+        seed
       );
     }
   }

@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { createPatternImage } from "./createPatternImage";
+import { generatePatternImage } from "./generatePatternImage";
 import {
   circleRenderer,
   horizontaLineRenderer,
+  subGridRenderer,
   verticalLineRenderer,
 } from "./patternCellGenerators";
 
@@ -16,7 +17,7 @@ const GenerativePattern = ({ seed }: Props) => {
 
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
   useEffect(() => {
-    createPatternImage({
+    generatePatternImage({
       canvas: canvasRef.current,
       rows: 10,
       cols: 10,
@@ -27,6 +28,7 @@ const GenerativePattern = ({ seed }: Props) => {
         circleRenderer,
         horizontaLineRenderer,
         verticalLineRenderer,
+        subGridRenderer,
       ],
       seed: seed,
     });
