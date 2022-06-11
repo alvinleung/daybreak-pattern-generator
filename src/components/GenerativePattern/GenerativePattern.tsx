@@ -1,24 +1,36 @@
 import { motion } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { generatePatternImage } from "./generatePatternImage";
-import { circleRenderer } from "./patternCellGenerators";
+import { createPatternImage } from "./createPatternImage";
+import {
+  circleRenderer,
+  horizontaLineRenderer,
+  verticalLineRenderer,
+} from "./patternCellGenerators";
 
-type Props = {};
+type Props = {
+  seed: number;
+};
 
-const GenerativePattern = (props: Props) => {
+const GenerativePattern = ({ seed }: Props) => {
   const [isPanning, setIsPanning] = useState(false);
 
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
   useEffect(() => {
-    generatePatternImage({
+    createPatternImage({
       canvas: canvasRef.current,
-      rows: 100,
-      cols: 100,
-      cellHeight: 10,
-      cellWidth: 10,
-      patternGenerators: [circleRenderer],
+      rows: 10,
+      cols: 10,
+      cellHeight: 100,
+      cellWidth: 100,
+      patternGenerators: [
+        circleRenderer,
+        circleRenderer,
+        horizontaLineRenderer,
+        verticalLineRenderer,
+      ],
+      seed: seed,
     });
-  }, []);
+  }, [seed]);
 
   return (
     <div className="bg-[#EEE] w-screen h-screen overflow-hidden">

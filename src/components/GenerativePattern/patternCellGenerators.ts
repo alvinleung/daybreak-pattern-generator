@@ -1,4 +1,4 @@
-import { GridItemRenderer } from "./RandomGridItemRenderer";
+import { GridItemRenderer } from "./gridItemRenderer";
 
 export const circleRenderer: GridItemRenderer = (context, width, height) => {
   context.strokeStyle = "#000";
