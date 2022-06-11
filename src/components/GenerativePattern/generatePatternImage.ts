@@ -4,6 +4,7 @@ import {
 } from "./RandomGridItemRenderer";
 
 export interface PatternConfig {
+  canvas?: HTMLCanvasElement;
   rows: number;
   cols: number;
   cellHeight: number;
@@ -11,6 +12,7 @@ export interface PatternConfig {
   patternGenerators: Array<GridItemRenderer>;
 }
 export function generatePatternImage({
+  canvas,
   rows,
   cols,
   cellHeight,
@@ -20,11 +22,10 @@ export function generatePatternImage({
   const width = rows * cellHeight;
   const height = cols * cellWidth;
 
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-
-  const context = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const baseCanvas = canvas || document.createElement("canvas");
+  baseCanvas.width = width;
+  baseCanvas.height = height;
+  const context = baseCanvas.getContext("2d") as CanvasRenderingContext2D;
 
   // background colour
   context.fillStyle = "#fff";
@@ -49,5 +50,5 @@ export function generatePatternImage({
     }
   }
 
-  return canvas;
+  return baseCanvas;
 }
