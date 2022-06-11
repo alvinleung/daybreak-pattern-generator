@@ -2,7 +2,10 @@ import { generatePatternImage } from "./generatePatternImage";
 import {
   createRandomGridItemRenderer,
   GridItemRenderer,
+  RendererInfoList,
 } from "./gridItemRenderer";
+
+export const emptyRenderer: GridItemRenderer = () => {};
 
 export const circleRenderer: GridItemRenderer = ({ context, x, y, width }) => {
   context.strokeStyle = "#000";
@@ -44,26 +47,25 @@ export const verticalLineRenderer: GridItemRenderer = ({
   context.stroke();
 };
 
-export const subGridRenderer: GridItemRenderer = ({
-  context,
-  x,
-  y,
-  width,
-  height,
-  seed,
-}) => {
-  const image = generatePatternImage({
-    rows: 10,
-    cols: 10,
-    cellWidth: width / 10,
-    cellHeight: height / 10,
-    patternGenerators: [
-      verticalLineRenderer,
-      circleRenderer,
-      horizontaLineRenderer,
-    ],
-    seed: seed + x * y,
-  });
+export const createSubGridRenderer = (renderers: RendererInfoList) => {
+  const subGridRenderer: GridItemRenderer = ({
+    context,
+    x,
+    y,
+    width,
+    height,
+    seed,
+  }) => {
+    const image = generatePatternImage({
+      rows: 10,
+      cols: 10,
+      cellWidth: width / 10,
+      cellHeight: height / 10,
+      renderers: renderers,
+      seed: seed + x * y,
+    });
 
-  context.drawImage(image, x, y, width, height);
+    context.drawImage(image, x, y, width, height);
+  };
+  return subGridRenderer;
 };

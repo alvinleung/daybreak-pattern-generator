@@ -3,8 +3,9 @@ import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { generatePatternImage } from "./generatePatternImage";
 import {
   circleRenderer,
+  emptyRenderer,
   horizontaLineRenderer,
-  subGridRenderer,
+  createSubGridRenderer,
   verticalLineRenderer,
 } from "./patternCellGenerators";
 
@@ -19,16 +20,48 @@ const GenerativePattern = ({ seed }: Props) => {
   useEffect(() => {
     generatePatternImage({
       canvas: canvasRef.current,
-      rows: 10,
-      cols: 10,
+      rows: 8,
+      cols: 8,
       cellHeight: 100,
       cellWidth: 100,
-      patternGenerators: [
-        circleRenderer,
-        circleRenderer,
-        horizontaLineRenderer,
-        verticalLineRenderer,
-        subGridRenderer,
+      renderers: [
+        {
+          renderer: circleRenderer,
+          weight: 30,
+        },
+        {
+          renderer: createSubGridRenderer([
+            {
+              renderer: circleRenderer,
+              weight: 20,
+            },
+            {
+              renderer: emptyRenderer,
+              weight: 70,
+            },
+            {
+              renderer: horizontaLineRenderer,
+              weight: 5,
+            },
+            {
+              renderer: verticalLineRenderer,
+              weight: 20,
+            },
+          ]),
+          weight: 60,
+        },
+        {
+          renderer: verticalLineRenderer,
+          weight: 20,
+        },
+        {
+          renderer: horizontaLineRenderer,
+          weight: 20,
+        },
+        {
+          renderer: emptyRenderer,
+          weight: 90,
+        },
       ],
       seed: seed,
     });
