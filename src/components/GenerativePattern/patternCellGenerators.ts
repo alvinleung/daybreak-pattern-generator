@@ -47,6 +47,20 @@ export const verticalLineRenderer: GridItemRenderer = ({
   context.stroke();
 };
 
+export const createImageRenderer = (img: HTMLImageElement) => {
+  const imageRenderer: GridItemRenderer = ({
+    context,
+    x,
+    y,
+    width,
+    height,
+  }) => {
+    context.drawImage(img, x, y, width, height);
+  };
+
+  return imageRenderer;
+};
+
 export const createSubGridRenderer = (renderers: RendererInfoList) => {
   const subGridRenderer: GridItemRenderer = ({
     context,
