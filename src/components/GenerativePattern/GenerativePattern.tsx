@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { generatePatternImage } from "./generatePatternImage";
 import {
-  circleRenderer,
-  emptyRenderer,
-  horizontaLineRenderer,
-  createSubGridRenderer,
-  verticalLineRenderer,
-} from "./patternCellGenerators";
+  generateGraphic,
+  getCanvasSizeFromCellInfo,
+} from "../../graphicRendering/generateGraphic";
+import { circle } from "../../graphicRendering/renderers/circle";
+import { empty } from "../../graphicRendering/renderers/empty";
+import graphic from "../../graphicRendering/renderers/graphic";
+import { line, Line } from "../../graphicRendering/renderers/line";
+import { createSeed } from "../../graphicRendering/seed";
 
 type Props = {
   seed: number;
@@ -18,53 +19,30 @@ const GenerativePattern = ({ seed }: Props) => {
 
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
   useEffect(() => {
-    generatePatternImage({
-      canvas: canvasRef.current,
-      rows: 8,
-      cols: 8,
-      cellHeight: 100,
-      cellWidth: 100,
-      renderers: [
-        {
-          renderer: circleRenderer,
-          weight: 30,
-        },
-        {
-          renderer: createSubGridRenderer([
-            {
-              renderer: circleRenderer,
-              weight: 20,
-            },
-            {
-              renderer: emptyRenderer,
-              weight: 70,
-            },
-            {
-              renderer: horizontaLineRenderer,
-              weight: 5,
-            },
-            {
-              renderer: verticalLineRenderer,
-              weight: 20,
-            },
-          ]),
-          weight: 60,
-        },
-        {
-          renderer: verticalLineRenderer,
-          weight: 20,
-        },
-        {
-          renderer: horizontaLineRenderer,
-          weight: 20,
-        },
-        {
-          renderer: emptyRenderer,
-          weight: 90,
-        },
-      ],
-      seed: seed,
-    });
+    const seedInfo = createSeed(seed);
+
+    generateGraphic(
+      {
+        canvas: canvasRef.current,
+        seed: seedInfo,
+        width: 1000,
+        height: 1000,
+      },
+      graphic.grid({ rows: 10, cols: 10 }, [
+        graphic.gridItem(20, circle()),
+        graphic.gridItem(5, line(Line.HORIZONTAL)),
+        graphic.gridItem(10, line(Line.VERTICAL)),
+        graphic.gridItem(30, empty()),
+        graphic.gridItem(
+          50,
+          graphic.grid({ cols: 4, rows: 4 }, [
+            graphic.gridItem(10, circle()),
+            graphic.gridItem(10, line(Line.VERTICAL)),
+            graphic.gridItem(30, empty()),
+          ])
+        ),
+      ])
+    );
   }, [seed]);
 
   return (
