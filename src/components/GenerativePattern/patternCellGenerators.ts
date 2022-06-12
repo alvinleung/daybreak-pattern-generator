@@ -2,7 +2,7 @@ import { generatePatternImage } from "./generatePatternImage";
 import {
   createRandomGridItemRenderer,
   GridItemRenderer,
-  RendererInfoList,
+  CellRendererInfoList,
 } from "./gridItemRenderer";
 
 export const emptyRenderer: GridItemRenderer = () => {};
@@ -61,7 +61,7 @@ export const createImageRenderer = (img: HTMLImageElement) => {
   return imageRenderer;
 };
 
-export const createSubGridRenderer = (renderers: RendererInfoList) => {
+export const createSubGridRenderer = (renderers: CellRendererInfoList) => {
   const subGridRenderer: GridItemRenderer = ({
     context,
     x,

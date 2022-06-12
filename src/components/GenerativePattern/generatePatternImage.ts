@@ -1,7 +1,7 @@
 import {
   createRandomGridItemRenderer,
   GridItemRenderer,
-  RendererInfoList,
+  CellRendererInfoList,
 } from "./gridItemRenderer";
 
 import OpenSimplexNoise from "@minttu/open-simplex-noise";
@@ -12,7 +12,7 @@ export interface PatternConfig {
   cols: number;
   cellHeight: number;
   cellWidth: number;
-  renderers: RendererInfoList;
+  renderers: CellRendererInfoList;
   seed?: number;
 }
 export function generatePatternImage({

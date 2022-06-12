@@ -10,21 +10,21 @@ interface GridItemInfo {
 }
 
 export type GridItemRenderer = (info: GridItemInfo) => void;
-export type RendererInfoList = Array<RendererInfo>;
+export type CellRendererInfoList = Array<CellRendererInfo>;
 
-export interface RendererInfo {
+export interface CellRendererInfo {
   renderer: GridItemRenderer;
   weight: number;
 }
 
 export function createRandomGridItemRenderer(
-  rendererInfoList: RendererInfoList,
+  rendererInfoList: CellRendererInfoList,
   seed: number
 ) {
   const openSimplex = new OpenSimplexNoise(seed);
 
   const weightedInfoList = (() => {
-    const finalList: RendererInfoList = [];
+    const finalList: CellRendererInfoList = [];
     rendererInfoList.forEach((renderInfo) => {
       for (let i = 0; i < renderInfo.weight; i++) {
         finalList.push(renderInfo);
