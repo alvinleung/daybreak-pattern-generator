@@ -3,6 +3,7 @@ import * as empty from "./empty";
 import * as grid from "./grid";
 import * as image from "./image";
 import * as line from "./line";
+import * as layer from "./layer";
 
 const graphic = {
   ...circle,
@@ -10,5 +11,6 @@ const graphic = {
   ...grid,
   ...image,
   ...line,
+  ...layer,
 };
 export default graphic;
