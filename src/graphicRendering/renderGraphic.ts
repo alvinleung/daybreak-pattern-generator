@@ -4,23 +4,22 @@ import { Seed } from "./seed";
 export interface GraphicInfo {
   width: number;
   height: number;
-  canvas: HTMLCanvasElement;
+  context?: CanvasRenderingContext2D;
   seed: Seed;
 }
 
-export function generateGraphic(
-  info: GraphicInfo,
-  renderer: RenderingFunction
-) {
+export function renderGraphic(info: GraphicInfo, renderer: RenderingFunction) {
   // render the graphic here
-  const baseCanvas = info.canvas || document.createElement("canvas");
-  baseCanvas.width = info.width;
-  baseCanvas.height = info.height;
 
-  // baseCanvas.style.width = info.width / window.devicePixelRatio + "px";
-  // baseCanvas.style.height = info.height / window.devicePixelRatio + "px";
+  // if size changed, change the size
+  const baseCanvas = info.context
+    ? info.context.canvas
+    : document.createElement("canvas");
+  if (baseCanvas.width !== info.width) baseCanvas.width = info.width;
+  if (baseCanvas.height !== info.height) baseCanvas.height = info.height;
 
-  const context = baseCanvas.getContext("2d") as CanvasRenderingContext2D;
+  const context =
+    info.context || (baseCanvas.getContext("2d") as CanvasRenderingContext2D);
 
   // background colour
   context.fillStyle = "#fff";
