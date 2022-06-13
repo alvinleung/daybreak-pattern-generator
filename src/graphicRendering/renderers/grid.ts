@@ -58,7 +58,7 @@ export function grid({
         (weightedInfoList.length - 1)
     );
 
-    weightedInfoList[rand].renderer({
+    weightedInfoList[rand]?.renderer({
       context: context,
       x: col * cellWidth,
       y: row * cellHeight,
