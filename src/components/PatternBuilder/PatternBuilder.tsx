@@ -48,9 +48,12 @@ const PatternBuilder = (props: Props) => {
         <PatternElementEditor
           patternElement={basePatternElement}
           onChange={handleBaseElementChange}
+          onDelete={() => setBasePatternElement(undefined)}
         />
       )}
-      <ElementPalette onPatternElementAdded={handlePatternElementAdd} />
+      {!basePatternElement && (
+        <ElementPalette onPatternElementAdded={handlePatternElementAdd} />
+      )}
     </div>
   );
 };

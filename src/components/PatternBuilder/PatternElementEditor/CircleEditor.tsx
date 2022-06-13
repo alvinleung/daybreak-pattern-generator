@@ -3,7 +3,7 @@ import React from "react";
 type Props = {};
 
 const CircleEditor = (props: Props) => {
-  return <div>Circle Editor: Not Implemented</div>;
+  return <div className="px-2">Render a Circle</div>;
 };
 
 export default CircleEditor;

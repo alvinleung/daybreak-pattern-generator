@@ -1,8 +1,16 @@
-import React, { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   RendererEditorRegistry,
   RendererInfo,
 } from "../../graphicRendering/renderers/rendererRegistry";
+import useClickOutside from "../../hooks/useClickOutside";
 import {
   PatternElement,
   PatternElementConfigCollection,
@@ -19,6 +27,16 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
   );
 
   const [isShowingMenu, setIsShowingMenu] = useState(false);
+
+  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
+  useClickOutside(
+    containerRef,
+    () => {
+      // handle click outside
+      setIsShowingMenu(false);
+    },
+    true
+  );
 
   const handleElementAdd = (rendererName: string) => {
     setIsShowingMenu(false);
@@ -40,25 +58,47 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
     onPatternElementAdded && onPatternElementAdded(newPatternElement);
   };
 
+  const [menuTopPosition, setMenuTopPosition] = useState(0);
+  useEffect(() => {
+    setMenuTopPosition(containerRef.current.getBoundingClientRect().top);
+  }, [isShowingMenu]);
+
   return (
-    <div>
-      <button onClick={() => setIsShowingMenu(!isShowingMenu)}>
-        {isShowingMenu ? "" : "Add"}
+    <div className="flex flex-col w-full relative" ref={containerRef}>
+      <button
+        className="hover:opacity-50"
+        onClick={() => setIsShowingMenu(!isShowingMenu)}
+      >
+        +
       </button>
-      <div className="grid grid-cols-2 gap-4">
-        {isShowingMenu &&
-          Object.keys(allRenderers).map((rendererName, index) => {
-            return (
-              <button
-                key={index}
-                className="py-8 rounded-lg bg-[#EEE] text-center hover:opacity-50"
-                onClick={() => handleElementAdd(rendererName)}
-              >
-                {rendererName}
-              </button>
-            );
-          })}
-      </div>
+      <AnimatePresence>
+        {isShowingMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            style={{ top: menuTopPosition }}
+            transition={{
+              duration: 0.3,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="grid grid-cols-2 gap-2 fixed  bg-[#FFF] p-2 shadow-lg z-10 rounded-lg"
+          >
+            <div className="col-span-2">Add a Renderer</div>
+            {Object.keys(allRenderers).map((rendererName, index) => {
+              return (
+                <button
+                  key={index}
+                  className="py-8 px-8 rounded-lg border text-center hover:opacity-50"
+                  onClick={() => handleElementAdd(rendererName)}
+                >
+                  {rendererName}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

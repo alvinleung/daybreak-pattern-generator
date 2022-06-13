@@ -1,0 +1,45 @@
+.number-slider {
+  /* font-family: "Roboto Mono", monospace; */
+
+  position: relative;
+
+  /* prevent ghost image on drag */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+
+  cursor: col-resize;
+  width: 100%;
+}
+
+.number-slider__value {
+  box-sizing: border-box;
+
+  /* padding: var(--spacing-xs) !important; */
+  margin: 0rem;
+
+  /* line-height: 1em; */
+  /* border: 1px solid rgba(0, 0, 0, 0); */
+  outline: none;
+  background-color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  /* color: #fff; */
+
+  /* font-family: "Roboto Mono", monospace !important; */
+  font-size: inherit !important;
+
+  /* color: var(--clr-accent-lighter); */
+}
+
+.number-slider__value:focus {
+  /* background-color: var(--clr-bg-lighter); */
+}

@@ -1,5 +1,6 @@
 export enum ParameterType {
   NUMBER = "number",
+  STRING = "string",
   WEIGHTED_RENDERER_LIST = "weighted-renderer-list",
 }
 

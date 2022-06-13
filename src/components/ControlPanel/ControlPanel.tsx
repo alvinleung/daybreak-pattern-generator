@@ -15,11 +15,9 @@ const ControlPanel = ({ onSeedChange, seed }: Props) => {
   };
 
   return (
-    <div className="z-10 border-r text-sm">
-      <div className="px-3 py-3 rounded-sm  grid gap-[.2em] ">
-        <h1 className="mb-4 uppercase tracking-wide opacity-50">
-          Pattern Generator
-        </h1>
+    <div className="z-10 border-r text-xs cursor-default w-64">
+      <div className="px-3 py-3 grid gap-[.2em] ">
+        <h1 className="mb-4 tracking-wide">Pattern Generator</h1>
         <Field label="Seed">
           <TextInput type="text" value={seed} onChange={handleSeedChange} />
         </Field>
