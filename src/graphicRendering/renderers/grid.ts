@@ -47,21 +47,26 @@ export function grid({
   // drawing a cell
   function renderCell(
     context: CanvasRenderingContext2D,
-    col: number,
-    row: number,
+    cellX: number,
+    cellY: number,
+    cellAbsX: number,
+    cellAbsY: number,
     cellWidth: number,
     cellHeight: number,
     seed: Seed
   ) {
+    // const cellX = col * cellWidth;
+    // const cellY = row * cellHeight;
+
     const rand = Math.round(
-      ((seed.openSimplexNoise.noise2D(col, row) + 1) / 2) *
+      ((seed.openSimplexNoise.noise2D(cellAbsX, cellAbsY) + 1) / 2) *
         (weightedInfoList.length - 1)
     );
 
     weightedInfoList[rand]?.renderer({
       context: context,
-      x: col * cellWidth,
-      y: row * cellHeight,
+      x: cellX,
+      y: cellY,
       width: cellWidth,
       height: cellHeight,
       seed: suggestedSeed || seed,
@@ -76,7 +81,19 @@ export function grid({
         context.translate(x, y);
         const cellWidth = width / cols;
         const cellHeight = height / rows;
-        renderCell(context, currCol, currRow, cellWidth, cellHeight, seed);
+        const cellX = currCol * cellWidth;
+        const cellY = currRow * cellHeight;
+
+        renderCell(
+          context,
+          cellX,
+          cellY,
+          cellX + x,
+          cellY + y,
+          cellWidth,
+          cellHeight,
+          seed
+        );
         context.restore();
       }
     }
