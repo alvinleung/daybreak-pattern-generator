@@ -39,16 +39,14 @@ const PatternElementEditor = ({
             />
           );
         }
-
-        if (patternElement.rendererName === "circle") {
-          return <CircleEditor />;
-        }
         if (patternElement.rendererName === "image") {
           return <ImageEditor />;
         }
 
         return (
-          <div>Editor for {patternElement.rendererName} not implemented</div>
+          <div className="opacity-50 px-2">
+            No editor for '{patternElement.rendererName}'.
+          </div>
         );
       })()}
     </div>
