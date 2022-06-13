@@ -1,4 +1,5 @@
 import { RenderingFunction } from "../rendering";
+import { RendererEditorRegistry } from "./rendererRegistry";
 
 export function circle(): RenderingFunction {
   return ({ context, x, y, width }) => {
@@ -9,3 +10,5 @@ export function circle(): RenderingFunction {
     context.stroke();
   };
 }
+
+RendererEditorRegistry.register("circle", circle, {});

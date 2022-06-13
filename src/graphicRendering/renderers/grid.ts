@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { RenderingFunction, RenderingFunctionInfo } from "../rendering";
 import { Seed } from "../seed";
+import { ParameterType, RendererEditorRegistry } from "./rendererRegistry";
 
 type GridInfo = {
   cols: number;
@@ -76,3 +77,18 @@ export function grid(
     }
   };
 }
+
+RendererEditorRegistry.register("grid", grid, {
+  cols: {
+    type: ParameterType.NUMBER,
+    value: 2,
+  },
+  rows: {
+    type: ParameterType.NUMBER,
+    value: 2,
+  },
+  renderers: {
+    type: ParameterType.WEIGHTED_RENDERER_LIST,
+    value: [],
+  },
+});

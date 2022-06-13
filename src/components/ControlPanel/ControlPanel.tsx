@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useRef } from "react";
 import { Field, TextInput } from "./formUI";
-import PatternBuilder from "./PatternBuilder";
+import PatternBuilder from "../PatternBuilder/PatternBuilder";
 
 type Props = {
   seed: number;
