@@ -1,3 +1,10 @@
+import "./lines";
+import "./circle";
+import "./empty";
+import "./grid";
+import "./image";
+import "./layer";
+
 import * as circle from "./circle";
 import * as empty from "./empty";
 import * as grid from "./grid";

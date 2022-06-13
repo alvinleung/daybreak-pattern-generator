@@ -22,7 +22,6 @@ import { square } from "../../graphicRendering/renderers/square";
 import { RenderingFunction } from "../../graphicRendering/rendering";
 import { WeightedRenderingFunctionList } from "../../graphicRendering/renderers/grid";
 import { renderElement } from "./PatternElementRenderer";
-
 type Props = {
   seed: number;
   lazyUpdate?: boolean;

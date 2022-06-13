@@ -1,4 +1,5 @@
 import { RenderingFunction } from "../rendering";
+import { RendererEditorRegistry } from "./rendererRegistry";
 
 export enum Line {
   HORIZONTAL,
@@ -16,3 +17,5 @@ export function line(type: Line): RenderingFunction {
     context.stroke();
   };
 }
+
+RendererEditorRegistry.register("line", line, {});

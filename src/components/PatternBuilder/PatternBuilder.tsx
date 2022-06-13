@@ -1,13 +1,10 @@
 import React, { useMemo, useState } from "react";
-import {
-  RenderConfigType,
-  RendererInfo,
-} from "../../graphicRendering/renderers/rendererRegistry";
-import { RenderingFunction } from "../../graphicRendering/rendering";
+import { RenderConfigType } from "../../graphicRendering/renderers/rendererRegistry";
 import { usePatternDocumentContext } from "../GenerativePattern/PatternDocumentContext";
 import ElementPalette from "./ElementPalette";
-import GridEditor from "./PatternElementEditor/GridEditor";
 import PatternElementEditor from "./PatternElementEditor/PatternElementEditor";
+
+import "../../graphicRendering/renderers/graphic";
 
 type Props = {};
 
