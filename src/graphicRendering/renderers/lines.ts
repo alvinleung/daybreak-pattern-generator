@@ -19,8 +19,8 @@ export function verticalLine(): RenderingFunction {
     context.fillStyle = "#000";
 
     context.beginPath();
-    context.moveTo(x, y + height / 2);
-    context.lineTo(x + width, y + height / 2);
+    context.moveTo(x + width / 2, y);
+    context.lineTo(x + width / 2, y + height);
     context.stroke();
   };
 }
