@@ -1,5 +1,5 @@
 import { RenderingFunction } from "../rendering";
-import { ParameterType, RendererEditorRegistry } from "./rendererRegistry";
+import { RenderConfigType, RendererEditorRegistry } from "./rendererRegistry";
 
 export function image(img: HTMLImageElement): RenderingFunction {
   return ({ context, x, y, width, height }) => {
@@ -9,7 +9,7 @@ export function image(img: HTMLImageElement): RenderingFunction {
 
 RendererEditorRegistry.register("image", image, {
   image: {
-    type: ParameterType.STRING,
+    type: RenderConfigType.STRING,
     value: "",
   },
 });

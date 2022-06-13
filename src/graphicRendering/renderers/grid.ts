@@ -1,12 +1,13 @@
 import { render } from "@testing-library/react";
 import { RenderingFunction, RenderingFunctionInfo } from "../rendering";
 import { Seed } from "../seed";
-import { ParameterType, RendererEditorRegistry } from "./rendererRegistry";
+import { RenderConfigType, RendererEditorRegistry } from "./rendererRegistry";
 
 type GridInfo = {
   cols: number;
   rows: number;
   seed?: Seed;
+  renderers: WeightedRenderingFunctionList;
 };
 
 type GridItem = {
@@ -22,14 +23,18 @@ export function gridItem(weight: number, renderer: RenderingFunction) {
   };
 }
 
-export function grid(
-  { cols, rows, seed }: GridInfo,
-  renderers: WeightedRenderingFunctionList
-): RenderingFunction {
+export function grid({
+  cols,
+  rows,
+  seed,
+  renderers,
+}: GridInfo): RenderingFunction {
   const suggestedSeed = seed;
-
   // populate an array according to the suggested probability
   const weightedInfoList = (() => {
+    // return an empty array if no renderer is provided
+    if (!renderers) return [];
+
     const resultList: WeightedRenderingFunctionList = [];
     renderers.forEach((renderInfo) => {
       for (let i = 0; i < renderInfo.weight; i++) {
@@ -80,15 +85,15 @@ export function grid(
 
 RendererEditorRegistry.register("grid", grid, {
   cols: {
-    type: ParameterType.NUMBER,
+    type: RenderConfigType.NUMBER,
     value: 2,
   },
   rows: {
-    type: ParameterType.NUMBER,
+    type: RenderConfigType.NUMBER,
     value: 2,
   },
   renderers: {
-    type: ParameterType.WEIGHTED_RENDERER_LIST,
+    type: RenderConfigType.WEIGHTED_RENDERER_LIST,
     value: [],
   },
 });

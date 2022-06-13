@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
-  ParameterType,
+  RenderConfigType,
   RendererInfo,
 } from "../../graphicRendering/renderers/rendererRegistry";
 import { RenderingFunction } from "../../graphicRendering/rendering";
@@ -17,7 +17,7 @@ export interface PatternElement {
 }
 
 export interface PatternElementConfig<T> {
-  type: ParameterType;
+  type: RenderConfigType;
   value: T;
 }
 

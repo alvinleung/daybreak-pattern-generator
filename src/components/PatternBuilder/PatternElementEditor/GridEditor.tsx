@@ -1,5 +1,5 @@
 import React from "react";
-import { ParameterType } from "../../../graphicRendering/renderers/rendererRegistry";
+import { RenderConfigType } from "../../../graphicRendering/renderers/rendererRegistry";
 import { NumberSlider } from "../../ControlPanel/controls/NumberSlider";
 import { Field, NumberInput, TextInput } from "../../ControlPanel/formUI";
 import ElementPalette from "../ElementPalette";
@@ -32,7 +32,7 @@ const GridEditor = ({ onChange, rows, cols, renderers }: Props) => {
       rows: rows,
       cols: cols,
       renderers: {
-        type: ParameterType.WEIGHTED_RENDERER_LIST,
+        type: RenderConfigType.WEIGHTED_RENDERER_LIST,
         value: [...renderers.value, newPatternElement],
       },
     });
@@ -42,7 +42,7 @@ const GridEditor = ({ onChange, rows, cols, renderers }: Props) => {
     index: number
   ) => {
     const updatedRenderers = {
-      type: ParameterType.WEIGHTED_RENDERER_LIST,
+      type: RenderConfigType.WEIGHTED_RENDERER_LIST,
       value: renderers.value,
     };
     updatedRenderers.value[index].configs = newConfigs;
@@ -62,7 +62,7 @@ const GridEditor = ({ onChange, rows, cols, renderers }: Props) => {
       rows: rows,
       cols: cols,
       renderers: {
-        type: ParameterType.WEIGHTED_RENDERER_LIST,
+        type: RenderConfigType.WEIGHTED_RENDERER_LIST,
         value: newRendererList,
       },
     });

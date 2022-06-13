@@ -1,11 +1,11 @@
-export enum ParameterType {
+export enum RenderConfigType {
   NUMBER = "number",
-  STRING = "string",
+  STRING = "number",
   WEIGHTED_RENDERER_LIST = "weighted-renderer-list",
 }
 
 export interface RendererConfig<T> {
-  type: ParameterType;
+  type: RenderConfigType;
   value: T;
 }
 
