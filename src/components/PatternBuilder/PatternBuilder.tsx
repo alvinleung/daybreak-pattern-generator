@@ -4,6 +4,7 @@ import {
   RendererInfo,
 } from "../../graphicRendering/renderers/rendererRegistry";
 import { RenderingFunction } from "../../graphicRendering/rendering";
+import { usePatternDocumentContext } from "../GenerativePattern/PatternDocumentContext";
 import ElementPalette from "./ElementPalette";
 import GridEditor from "./PatternElementEditor/GridEditor";
 import PatternElementEditor from "./PatternElementEditor/PatternElementEditor";
@@ -25,33 +26,32 @@ export interface PatternElementConfigCollection {
 }
 
 const PatternBuilder = (props: Props) => {
-  const [basePatternElement, setBasePatternElement] =
-    useState<PatternElement>();
+  const { baseElement, setBaseElement } = usePatternDocumentContext();
 
   const handlePatternElementAdd = (patternElement: PatternElement) => {
-    setBasePatternElement(patternElement);
+    setBaseElement && setBaseElement(patternElement);
   };
 
   const handleBaseElementChange = (
     newConfig: PatternElementConfigCollection
   ) => {
     const withNewConfig: PatternElement = {
-      ...basePatternElement,
+      ...baseElement,
     } as PatternElement;
     withNewConfig.configs = newConfig;
-    setBasePatternElement(withNewConfig);
+    setBaseElement && setBaseElement(withNewConfig);
   };
 
   return (
     <div className="border-t px-3 py-3">
-      {basePatternElement && (
+      {baseElement && (
         <PatternElementEditor
-          patternElement={basePatternElement}
+          patternElement={baseElement}
           onChange={handleBaseElementChange}
-          onDelete={() => setBasePatternElement(undefined)}
+          onDelete={() => setBaseElement && setBaseElement(undefined)}
         />
       )}
-      {!basePatternElement && (
+      {!baseElement && (
         <ElementPalette onPatternElementAdded={handlePatternElementAdd} />
       )}
     </div>
