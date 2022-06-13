@@ -40,7 +40,7 @@ const PatternBuilder = (props: Props) => {
   };
 
   return (
-    <div className="border-t px-3 py-3">
+    <div className="px-3 py-3">
       {baseElement && (
         <PatternElementEditor
           patternElement={baseElement}

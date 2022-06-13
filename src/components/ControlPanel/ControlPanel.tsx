@@ -15,14 +15,14 @@ const ControlPanel = ({ onSeedChange, seed }: Props) => {
   };
 
   return (
-    <div className="z-10 border-r text-xs cursor-default w-64">
-      <div className="px-3 py-3 grid gap-[.2em] ">
+    <div className="z-10 border-r text-xs cursor-default w-64 h-screen flex flex-col">
+      <div className="px-3 py-3 grid gap-[.2em] sticky top-0 bg-[#FFF] z-10 border-b">
         <h1 className="mb-4 tracking-wide">Pattern Generator</h1>
         <Field label="Seed">
           <TextInput type="text" value={seed} onChange={handleSeedChange} />
         </Field>
       </div>
-      <div>
+      <div className="overflow-y-scroll">
         <PatternBuilder />
       </div>
     </div>
