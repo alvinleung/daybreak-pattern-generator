@@ -6,6 +6,7 @@ import {
 } from "../PatternBuilder";
 import CircleEditor from "./CircleEditor";
 import GridEditor from "./GridEditor";
+import ImageEditor from "./ImageEditor";
 
 type Props = {
   patternElement: PatternElement;
@@ -41,6 +42,9 @@ const PatternElementEditor = ({
 
         if (patternElement.rendererName === "circle") {
           return <CircleEditor />;
+        }
+        if (patternElement.rendererName === "image") {
+          return <ImageEditor />;
         }
 
         return (
