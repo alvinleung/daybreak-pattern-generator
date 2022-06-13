@@ -82,7 +82,7 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
               duration: 0.3,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="grid grid-cols-2 gap-2 fixed border bg-[#FEFEFE] p-2 shadow-lg z-10 rounded-lg"
+            className="grid grid-cols-2 gap-2 fixed border bg-[#FFF] p-2 shadow-xl z-10 rounded-lg"
           >
             <div className="col-span-2">Add a Renderer</div>
             {Object.keys(allRenderers).map((rendererName, index) => {
