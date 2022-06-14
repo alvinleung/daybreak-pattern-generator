@@ -29,6 +29,7 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
   const [isShowingMenu, setIsShowingMenu] = useState(false);
 
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const menuRef = useRef() as MutableRefObject<HTMLDivElement>;
   useClickOutside(
     containerRef,
     () => {
@@ -59,9 +60,23 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
   };
 
   const [menuTopPosition, setMenuTopPosition] = useState(0);
+  const [menuHeight, setMenuHeight] = useState(0);
   useEffect(() => {
-    setMenuTopPosition(containerRef.current.getBoundingClientRect().top);
-  }, [isShowingMenu]);
+    const menuHeight = menuRef.current
+      ? menuRef.current.getBoundingClientRect().height
+      : 400;
+    setMenuHeight(menuHeight);
+  }, [menuRef]);
+
+  useEffect(() => {
+    const containerBound = containerRef.current.getBoundingClientRect();
+    if (containerBound.top + menuHeight > window.innerHeight) {
+      setMenuTopPosition(window.innerHeight - menuHeight);
+      return;
+    }
+
+    setMenuTopPosition(containerBound.top);
+  }, [isShowingMenu, menuHeight]);
 
   return (
     <div className="flex flex-col w-full relative" ref={containerRef}>
@@ -82,6 +97,7 @@ const ElementPalette = ({ onPatternElementAdded }: Props) => {
               duration: 0.3,
               ease: [0.22, 1, 0.36, 1],
             }}
+            ref={menuRef}
             className="grid grid-cols-2 gap-2 fixed border bg-[#FFF] p-2 shadow-xl z-10 rounded-lg"
           >
             <div className="col-span-2">Add a Renderer</div>
