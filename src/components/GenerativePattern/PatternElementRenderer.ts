@@ -35,7 +35,6 @@ export function renderElement(elm: PatternElement): RenderingFunction {
 
     configValues[configKey] = config.value;
   });
-  console.log(configValues);
 
   return rendererEntry.rendererFactory(configValues);
 }
