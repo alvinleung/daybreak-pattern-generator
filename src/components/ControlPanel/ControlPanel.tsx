@@ -22,7 +22,7 @@ const ControlPanel = ({ onSeedChange, seed }: Props) => {
           <TextInput type="text" value={seed} onChange={handleSeedChange} />
         </Field>
       </div>
-      <div className="overflow-y-scroll">
+      <div className="overflow-y-auto">
         <PatternBuilder />
       </div>
     </div>
